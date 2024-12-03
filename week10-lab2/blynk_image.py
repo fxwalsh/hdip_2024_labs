@@ -1,14 +1,16 @@
 import BlynkLib
 from time import sleep
 from sense_hat import SenseHat
+from capture_image import capture_image
+from upload_image import upload_image
 
 #initialise SenseHAT
 sense = SenseHat()
 sense.clear()
 
 # Blynk authentication token
-BLYNK_AUTH = 'YOUR_AUTH_TOKENP5'
-
+BLYNK_AUTH = 'YOUR_AUTH_TOKEN'
+IMAGE_PATH="./images/sensehat_image.jpg"
 # Initialise the Blynk instance
 blynk = BlynkLib.Blynk(BLYNK_AUTH)
 
@@ -17,8 +19,13 @@ blynk = BlynkLib.Blynk(BLYNK_AUTH)
 def handle_v1_write(value):
     button_value = value[0]
     print(f'Current button value: {button_value}')
+    
     if button_value=="1":
         sense.clear(255,255,255)
+        capture_image(IMAGE_PATH)
+        result = upload_image(IMAGE_PATH)
+        blynk.set_property(2,"urls",result)
+
     else:
         sense.clear()
 
@@ -28,6 +35,7 @@ if __name__ == "__main__":
     try:
         while True:
             blynk.run()  # Process Blynk events
-            sleep(5)  # Add a short delay to avoid high CPU usage
+            blynk.virtual_write(0, round(sense.temperature,2))
+            sleep(2)  # Add a short delay to avoid high CPU usage
     except KeyboardInterrupt:
         print("Blynk application stopped.")

@@ -4,7 +4,7 @@ from picamera2.encoders import H264Encoder
 from picamera2.outputs import FfmpegOutput
 
 def record_video(output_file, duration):
-    # Initialize the Picamera2 instance
+    # Initialise the Picamera2 instance
     picam2 = Picamera2()
 
     # Configure the camera for video recording
@@ -16,6 +16,8 @@ def record_video(output_file, duration):
     picam2.start_recording(encoder, output)
     time.sleep(duration)
     picam2.stop_recording()
+    picam2.close()
 
-# Record a 5-second video 
-record_video("./images/output.mp4", 5)
+if __name__ == "__main__":
+	# Record a 5-second video 
+	record_video("./images/output.mp4", 5)
