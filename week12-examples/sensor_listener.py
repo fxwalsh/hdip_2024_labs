@@ -3,36 +3,24 @@ import threading
 
 class SensorListener:
     def __init__(self, host='0.0.0.0', port=5000, buffer_size=1024):
-        """
-        Initialise the UDP Listener.
-        
-        :param host: IP address to bind the UDP listener (default is 0.0.0.0 for all interfaces)
-        :param port: Port to listen on
-        :param buffer_size: Size of the data buffer for receiving UDP packets
-        """
+        #Initialise the UDP Listener.
         self.host = host
         self.port = port
         self.buffer_size = buffer_size
         self.running = False
         self.callback = None
 
-    def start(self):
-        """
-        Start in a separate thread.
-        """
+    def start(self):      
+        #Start in a separate thread.
         self.running = True
         threading.Thread(target=self._listen, daemon=True).start()
 
     def stop(self):
-        """
-        Stop the UDP listener.
-        """
+        #Stop the UDP listener.
         self.running = False
 
     def _listen(self):
-        """
-        Internal method to listen for UDP packets and handle them.
-        """
+        #Internal method to listen for UDP packets and handle them.
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as server:
             server.bind((self.host, self.port))
             print(f"UDP Listener started on {self.host}:{self.port}")
@@ -52,7 +40,7 @@ if __name__ == "__main__":
         print(f"Processing data: {data}")
 
     listener = SensorListener(port=5000)
-    listener.callbac=(handle_data
+    listener.callback=handle_data
     listener.start()
 
     try:

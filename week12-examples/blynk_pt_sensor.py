@@ -8,7 +8,7 @@ sense = SenseHat()
 sense.clear()
 
 # Initialise the Blynk instance
-blynk = BlynkLib.Blynk("RYIj9R2_QtUkPmZHBFjU8jKeAIoKmplF")
+blynk = BlynkLib.Blynk("YOUR_TOKEN")
 
 def motion_detected(data):
     print("motion detected")

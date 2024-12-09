@@ -9,7 +9,7 @@ sense.clear()
 
 
 # Initialise the Blynk instance
-blynk = BlynkLib.Blynk("RYIj9R2_QtUkPmZHBFjU8jKeAIoKmplF")
+blynk = BlynkLib.Blynk("YOUR_TOKEN")
 
 def button_pressed(event):
     print("Button Pressed")
